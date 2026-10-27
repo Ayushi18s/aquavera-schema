@@ -2,6 +2,35 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
+const siteUrl = window.location.origin + '/';
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}#website`,
+      url: siteUrl,
+      name: 'Aquavera',
+      description:
+        'A concept website exploring wastewater treatment, water reuse, and sustainable water management.',
+      inLanguage: 'en'
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}#webpage`,
+      url: siteUrl,
+      name: 'Aquavera | Water Treatment Concept',
+      isPartOf: {
+        '@id': `${siteUrl}#website`
+      },
+      description:
+        'Explore wastewater treatment, water reuse, recycling, and sewage treatment concepts.',
+      inLanguage: 'en'
+    }
+  ]
+};
+
 const services = [
   {
     number: "01",
