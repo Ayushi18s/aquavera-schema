@@ -145,11 +145,27 @@ function App() {
   const [activeStage, setActiveStage] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const handleScroll = () => setScrolled(window.scrollY > 24);
+
+  window.addEventListener("scroll", handleScroll);
+  handleScroll();
+
+  let script = document.getElementById("aquavera-schema");
+
+  if (!script) {
+    script = document.createElement("script");
+    script.id = "aquavera-schema";
+    script.type = "application/ld+json";
+    document.head.appendChild(script);
+  }
+
+  script.textContent = JSON.stringify(websiteSchema);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+    script.remove();
+  };
+}, []);
 
   const closeMenu = () => setMenuOpen(false);
 
